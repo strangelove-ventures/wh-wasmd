@@ -20,99 +20,102 @@ func NewMsgServerImpl(k types.ContractOpsKeeper) types.MsgServer {
 }
 
 func (m msgServer) StoreCode(goCtx context.Context, msg *types.MsgStoreCode) (*types.MsgStoreCodeResponse, error) {
-	if err := msg.ValidateBasic(); err != nil {
-		return nil, err
-	}
-	ctx := sdk.UnwrapSDKContext(goCtx)
-	senderAddr, err := sdk.AccAddressFromBech32(msg.Sender)
-	if err != nil {
-		return nil, sdkerrors.Wrap(err, "sender")
-	}
+	return nil, sdkerrors.Wrapf(sdkerrors.ErrNotSupported, "must use x/wormhole")
+	// if err := msg.ValidateBasic(); err != nil {
+	// 	return nil, err
+	// }
+	// ctx := sdk.UnwrapSDKContext(goCtx)
+	// senderAddr, err := sdk.AccAddressFromBech32(msg.Sender)
+	// if err != nil {
+	// 	return nil, sdkerrors.Wrap(err, "sender")
+	// }
 
-	ctx.EventManager().EmitEvent(sdk.NewEvent(
-		sdk.EventTypeMessage,
-		sdk.NewAttribute(sdk.AttributeKeyModule, types.ModuleName),
-		sdk.NewAttribute(sdk.AttributeKeySender, msg.Sender),
-	))
+	// ctx.EventManager().EmitEvent(sdk.NewEvent(
+	// 	sdk.EventTypeMessage,
+	// 	sdk.NewAttribute(sdk.AttributeKeyModule, types.ModuleName),
+	// 	sdk.NewAttribute(sdk.AttributeKeySender, msg.Sender),
+	// ))
 
-	codeID, checksum, err := m.keeper.Create(ctx, senderAddr, msg.WASMByteCode, msg.InstantiatePermission)
-	if err != nil {
-		return nil, err
-	}
+	// codeID, checksum, err := m.keeper.Create(ctx, senderAddr, msg.WASMByteCode, msg.InstantiatePermission)
+	// if err != nil {
+	// 	return nil, err
+	// }
 
-	return &types.MsgStoreCodeResponse{
-		CodeID:   codeID,
-		Checksum: checksum,
-	}, nil
+	// return &types.MsgStoreCodeResponse{
+	// 	CodeID:   codeID,
+	// 	Checksum: checksum,
+	// }, nil
 }
 
 // InstantiateContract instantiate a new contract with classic sequence based address generation
 func (m msgServer) InstantiateContract(goCtx context.Context, msg *types.MsgInstantiateContract) (*types.MsgInstantiateContractResponse, error) {
-	if err := msg.ValidateBasic(); err != nil {
-		return nil, err
-	}
-	ctx := sdk.UnwrapSDKContext(goCtx)
+	return nil, sdkerrors.Wrapf(sdkerrors.ErrNotSupported, "must use x/wormhole")
+	// if err := msg.ValidateBasic(); err != nil {
+	// 	return nil, err
+	// }
+	// ctx := sdk.UnwrapSDKContext(goCtx)
 
-	senderAddr, err := sdk.AccAddressFromBech32(msg.Sender)
-	if err != nil {
-		return nil, sdkerrors.Wrap(err, "sender")
-	}
-	var adminAddr sdk.AccAddress
-	if msg.Admin != "" {
-		if adminAddr, err = sdk.AccAddressFromBech32(msg.Admin); err != nil {
-			return nil, sdkerrors.Wrap(err, "admin")
-		}
-	}
+	// senderAddr, err := sdk.AccAddressFromBech32(msg.Sender)
+	// if err != nil {
+	// 	return nil, sdkerrors.Wrap(err, "sender")
+	// }
+	// var adminAddr sdk.AccAddress
+	// if msg.Admin != "" {
+	// 	if adminAddr, err = sdk.AccAddressFromBech32(msg.Admin); err != nil {
+	// 		return nil, sdkerrors.Wrap(err, "admin")
+	// 	}
+	// }
 
-	ctx.EventManager().EmitEvent(sdk.NewEvent(
-		sdk.EventTypeMessage,
-		sdk.NewAttribute(sdk.AttributeKeyModule, types.ModuleName),
-		sdk.NewAttribute(sdk.AttributeKeySender, msg.Sender),
-	))
+	// ctx.EventManager().EmitEvent(sdk.NewEvent(
+	// 	sdk.EventTypeMessage,
+	// 	sdk.NewAttribute(sdk.AttributeKeyModule, types.ModuleName),
+	// 	sdk.NewAttribute(sdk.AttributeKeySender, msg.Sender),
+	// ))
 
-	contractAddr, data, err := m.keeper.Instantiate(ctx, msg.CodeID, senderAddr, adminAddr, msg.Msg, msg.Label, msg.Funds)
-	if err != nil {
-		return nil, err
-	}
+	// contractAddr, data, err := m.keeper.Instantiate(ctx, msg.CodeID, senderAddr, adminAddr, msg.Msg, msg.Label, msg.Funds)
+	// if err != nil {
+	// 	return nil, err
+	// }
 
-	return &types.MsgInstantiateContractResponse{
-		Address: contractAddr.String(),
-		Data:    data,
-	}, nil
+	// return &types.MsgInstantiateContractResponse{
+	// 	Address: contractAddr.String(),
+	// 	Data:    data,
+	// }, nil
 }
 
 // InstantiateContract2 instantiate a new contract with predicatable address generated
 func (m msgServer) InstantiateContract2(goCtx context.Context, msg *types.MsgInstantiateContract2) (*types.MsgInstantiateContract2Response, error) {
-	if err := msg.ValidateBasic(); err != nil {
-		return nil, err
-	}
-	ctx := sdk.UnwrapSDKContext(goCtx)
+	return nil, sdkerrors.Wrapf(sdkerrors.ErrNotSupported, "must use x/wormhole")
+	// if err := msg.ValidateBasic(); err != nil {
+	// 	return nil, err
+	// }
+	// ctx := sdk.UnwrapSDKContext(goCtx)
 
-	senderAddr, err := sdk.AccAddressFromBech32(msg.Sender)
-	if err != nil {
-		return nil, sdkerrors.Wrap(err, "sender")
-	}
-	var adminAddr sdk.AccAddress
-	if msg.Admin != "" {
-		if adminAddr, err = sdk.AccAddressFromBech32(msg.Admin); err != nil {
-			return nil, sdkerrors.Wrap(err, "admin")
-		}
-	}
+	// senderAddr, err := sdk.AccAddressFromBech32(msg.Sender)
+	// if err != nil {
+	// 	return nil, sdkerrors.Wrap(err, "sender")
+	// }
+	// var adminAddr sdk.AccAddress
+	// if msg.Admin != "" {
+	// 	if adminAddr, err = sdk.AccAddressFromBech32(msg.Admin); err != nil {
+	// 		return nil, sdkerrors.Wrap(err, "admin")
+	// 	}
+	// }
 
-	ctx.EventManager().EmitEvent(sdk.NewEvent(
-		sdk.EventTypeMessage,
-		sdk.NewAttribute(sdk.AttributeKeyModule, types.ModuleName),
-		sdk.NewAttribute(sdk.AttributeKeySender, msg.Sender),
-	))
-	contractAddr, data, err := m.keeper.Instantiate2(ctx, msg.CodeID, senderAddr, adminAddr, msg.Msg, msg.Label, msg.Funds, msg.Salt, msg.FixMsg)
-	if err != nil {
-		return nil, err
-	}
+	// ctx.EventManager().EmitEvent(sdk.NewEvent(
+	// 	sdk.EventTypeMessage,
+	// 	sdk.NewAttribute(sdk.AttributeKeyModule, types.ModuleName),
+	// 	sdk.NewAttribute(sdk.AttributeKeySender, msg.Sender),
+	// ))
+	// contractAddr, data, err := m.keeper.Instantiate2(ctx, msg.CodeID, senderAddr, adminAddr, msg.Msg, msg.Label, msg.Funds, msg.Salt, msg.FixMsg)
+	// if err != nil {
+	// 	return nil, err
+	// }
 
-	return &types.MsgInstantiateContract2Response{
-		Address: contractAddr.String(),
-		Data:    data,
-	}, nil
+	// return &types.MsgInstantiateContract2Response{
+	// 	Address: contractAddr.String(),
+	// 	Data:    data,
+	// }, nil
 }
 
 func (m msgServer) ExecuteContract(goCtx context.Context, msg *types.MsgExecuteContract) (*types.MsgExecuteContractResponse, error) {

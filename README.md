@@ -1,3 +1,5 @@
+**WARNING**: This is a fork of wasmd for the purposes of Wormhole.
+
 # Wasm Zone
 
 [![CircleCI](https://circleci.com/gh/CosmWasm/wasmd/tree/main.svg?style=shield)](https://circleci.com/gh/CosmWasm/wasmd/tree/main)
