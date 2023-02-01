@@ -150,92 +150,95 @@ func (m msgServer) ExecuteContract(goCtx context.Context, msg *types.MsgExecuteC
 }
 
 func (m msgServer) MigrateContract(goCtx context.Context, msg *types.MsgMigrateContract) (*types.MsgMigrateContractResponse, error) {
-	if err := msg.ValidateBasic(); err != nil {
-		return nil, err
-	}
+	return nil, sdkerrors.Wrapf(sdkerrors.ErrNotSupported, "must use x/wormhole")
+	// if err := msg.ValidateBasic(); err != nil {
+	// 	return nil, err
+	// }
 
-	ctx := sdk.UnwrapSDKContext(goCtx)
-	senderAddr, err := sdk.AccAddressFromBech32(msg.Sender)
-	if err != nil {
-		return nil, sdkerrors.Wrap(err, "sender")
-	}
-	contractAddr, err := sdk.AccAddressFromBech32(msg.Contract)
-	if err != nil {
-		return nil, sdkerrors.Wrap(err, "contract")
-	}
+	// ctx := sdk.UnwrapSDKContext(goCtx)
+	// senderAddr, err := sdk.AccAddressFromBech32(msg.Sender)
+	// if err != nil {
+	// 	return nil, sdkerrors.Wrap(err, "sender")
+	// }
+	// contractAddr, err := sdk.AccAddressFromBech32(msg.Contract)
+	// if err != nil {
+	// 	return nil, sdkerrors.Wrap(err, "contract")
+	// }
 
-	ctx.EventManager().EmitEvent(sdk.NewEvent(
-		sdk.EventTypeMessage,
-		sdk.NewAttribute(sdk.AttributeKeyModule, types.ModuleName),
-		sdk.NewAttribute(sdk.AttributeKeySender, msg.Sender),
-	))
+	// ctx.EventManager().EmitEvent(sdk.NewEvent(
+	// 	sdk.EventTypeMessage,
+	// 	sdk.NewAttribute(sdk.AttributeKeyModule, types.ModuleName),
+	// 	sdk.NewAttribute(sdk.AttributeKeySender, msg.Sender),
+	// ))
 
-	data, err := m.keeper.Migrate(ctx, contractAddr, senderAddr, msg.CodeID, msg.Msg)
-	if err != nil {
-		return nil, err
-	}
+	// data, err := m.keeper.Migrate(ctx, contractAddr, senderAddr, msg.CodeID, msg.Msg)
+	// if err != nil {
+	// 	return nil, err
+	// }
 
-	return &types.MsgMigrateContractResponse{
-		Data: data,
-	}, nil
+	// return &types.MsgMigrateContractResponse{
+	// 	Data: data,
+	// }, nil
 }
 
 func (m msgServer) UpdateAdmin(goCtx context.Context, msg *types.MsgUpdateAdmin) (*types.MsgUpdateAdminResponse, error) {
-	if err := msg.ValidateBasic(); err != nil {
-		return nil, err
-	}
+	return nil, sdkerrors.Wrapf(sdkerrors.ErrNotSupported, "must use x/wormhole")
+	// if err := msg.ValidateBasic(); err != nil {
+	// 	return nil, err
+	// }
 
-	ctx := sdk.UnwrapSDKContext(goCtx)
-	senderAddr, err := sdk.AccAddressFromBech32(msg.Sender)
-	if err != nil {
-		return nil, sdkerrors.Wrap(err, "sender")
-	}
-	contractAddr, err := sdk.AccAddressFromBech32(msg.Contract)
-	if err != nil {
-		return nil, sdkerrors.Wrap(err, "contract")
-	}
-	newAdminAddr, err := sdk.AccAddressFromBech32(msg.NewAdmin)
-	if err != nil {
-		return nil, sdkerrors.Wrap(err, "new admin")
-	}
+	// ctx := sdk.UnwrapSDKContext(goCtx)
+	// senderAddr, err := sdk.AccAddressFromBech32(msg.Sender)
+	// if err != nil {
+	// 	return nil, sdkerrors.Wrap(err, "sender")
+	// }
+	// contractAddr, err := sdk.AccAddressFromBech32(msg.Contract)
+	// if err != nil {
+	// 	return nil, sdkerrors.Wrap(err, "contract")
+	// }
+	// newAdminAddr, err := sdk.AccAddressFromBech32(msg.NewAdmin)
+	// if err != nil {
+	// 	return nil, sdkerrors.Wrap(err, "new admin")
+	// }
 
-	ctx.EventManager().EmitEvent(sdk.NewEvent(
-		sdk.EventTypeMessage,
-		sdk.NewAttribute(sdk.AttributeKeyModule, types.ModuleName),
-		sdk.NewAttribute(sdk.AttributeKeySender, msg.Sender),
-	))
+	// ctx.EventManager().EmitEvent(sdk.NewEvent(
+	// 	sdk.EventTypeMessage,
+	// 	sdk.NewAttribute(sdk.AttributeKeyModule, types.ModuleName),
+	// 	sdk.NewAttribute(sdk.AttributeKeySender, msg.Sender),
+	// ))
 
-	if err := m.keeper.UpdateContractAdmin(ctx, contractAddr, senderAddr, newAdminAddr); err != nil {
-		return nil, err
-	}
+	// if err := m.keeper.UpdateContractAdmin(ctx, contractAddr, senderAddr, newAdminAddr); err != nil {
+	// 	return nil, err
+	// }
 
-	return &types.MsgUpdateAdminResponse{}, nil
+	// return &types.MsgUpdateAdminResponse{}, nil
 }
 
 func (m msgServer) ClearAdmin(goCtx context.Context, msg *types.MsgClearAdmin) (*types.MsgClearAdminResponse, error) {
-	if err := msg.ValidateBasic(); err != nil {
-		return nil, err
-	}
+	return nil, sdkerrors.Wrapf(sdkerrors.ErrNotSupported, "must use x/wormhole")
+	// if err := msg.ValidateBasic(); err != nil {
+	// 	return nil, err
+	// }
 
-	ctx := sdk.UnwrapSDKContext(goCtx)
-	senderAddr, err := sdk.AccAddressFromBech32(msg.Sender)
-	if err != nil {
-		return nil, sdkerrors.Wrap(err, "sender")
-	}
-	contractAddr, err := sdk.AccAddressFromBech32(msg.Contract)
-	if err != nil {
-		return nil, sdkerrors.Wrap(err, "contract")
-	}
+	// ctx := sdk.UnwrapSDKContext(goCtx)
+	// senderAddr, err := sdk.AccAddressFromBech32(msg.Sender)
+	// if err != nil {
+	// 	return nil, sdkerrors.Wrap(err, "sender")
+	// }
+	// contractAddr, err := sdk.AccAddressFromBech32(msg.Contract)
+	// if err != nil {
+	// 	return nil, sdkerrors.Wrap(err, "contract")
+	// }
 
-	ctx.EventManager().EmitEvent(sdk.NewEvent(
-		sdk.EventTypeMessage,
-		sdk.NewAttribute(sdk.AttributeKeyModule, types.ModuleName),
-		sdk.NewAttribute(sdk.AttributeKeySender, msg.Sender),
-	))
+	// ctx.EventManager().EmitEvent(sdk.NewEvent(
+	// 	sdk.EventTypeMessage,
+	// 	sdk.NewAttribute(sdk.AttributeKeyModule, types.ModuleName),
+	// 	sdk.NewAttribute(sdk.AttributeKeySender, msg.Sender),
+	// ))
 
-	if err := m.keeper.ClearContractAdmin(ctx, contractAddr, senderAddr); err != nil {
-		return nil, err
-	}
+	// if err := m.keeper.ClearContractAdmin(ctx, contractAddr, senderAddr); err != nil {
+	// 	return nil, err
+	// }
 
-	return &types.MsgClearAdminResponse{}, nil
+	// return &types.MsgClearAdminResponse{}, nil
 }
